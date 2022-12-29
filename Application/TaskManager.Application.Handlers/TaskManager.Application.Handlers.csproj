@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManager.Application.Abstractions\TaskManager.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\TaskManager.Application.Contracts\TaskManager.Application.Contracts.csproj" />
+    <ProjectReference Include="..\TaskManager.Application\TaskManager.Application.csproj" />
+  </ItemGroup>
+
+</Project>
