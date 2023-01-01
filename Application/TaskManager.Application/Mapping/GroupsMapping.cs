@@ -10,6 +10,6 @@ public static class GroupsMapping
         return new TaskGroupDto(
             taskGroup.Id,
             taskGroup.Name,
-            taskGroup.Tasks.Select(t => t.AsDto()).ToList());
+            taskGroup.RootTasks.Select(t => t.AsDto()).ToList());
     }
 }

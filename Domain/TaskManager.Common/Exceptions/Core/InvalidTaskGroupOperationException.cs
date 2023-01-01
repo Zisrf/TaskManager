@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Common.Exceptions.Entities;
+﻿namespace TaskManager.Common.Exceptions.Core;
 
 public class InvalidTaskGroupOperationException : TaskManagerDomainException
 {

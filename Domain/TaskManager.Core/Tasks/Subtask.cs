@@ -1,6 +1,4 @@
-﻿using TaskManager.Common.Exceptions.Entities;
-
-namespace TaskManager.Core.Tasks;
+﻿namespace TaskManager.Core.Tasks;
 
 public partial class Subtask : BaseTask
 {

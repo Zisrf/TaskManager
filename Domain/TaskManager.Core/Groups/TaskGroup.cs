@@ -1,12 +1,12 @@
 ﻿using RichEntity.Annotations;
-using TaskManager.Common.Exceptions.Entities;
+using TaskManager.Common.Exceptions.Core;
 using TaskManager.Core.Tasks;
 
 namespace TaskManager.Core.Groups;
 
 public partial class TaskGroup : IEntity<Guid>
 {
-    private readonly HashSet<RootTask> _tasks = new();
+    private readonly HashSet<RootTask> _rootTasks = new();
 
     public TaskGroup(string name)
         : this(Guid.NewGuid())
@@ -15,17 +15,17 @@ public partial class TaskGroup : IEntity<Guid>
     }
 
     public string Name { get; set; }
-    public virtual IReadOnlyCollection<RootTask> Tasks => _tasks;
+    public virtual IReadOnlyCollection<RootTask> RootTasks => _rootTasks;
 
-    public void AddTask(RootTask task)
+    public void AddTask(RootTask rootTask)
     {
-        if (!_tasks.Add(task))
-            throw InvalidTaskGroupOperationException.OnAddExistingTask(Id, task.Id);
+        if (!_rootTasks.Add(rootTask))
+            throw InvalidTaskGroupOperationException.OnAddExistingTask(Id, rootTask.Id);
     }
 
-    public void RemoveTask(RootTask task)
+    public void RemoveTask(RootTask rootTask)
     {
-        if (!_tasks.Remove(task))
-            throw InvalidTaskGroupOperationException.OnRemoveNonExistentTask(Id, task.Id);
+        if (!_rootTasks.Remove(rootTask))
+            throw InvalidTaskGroupOperationException.OnRemoveNonExistentTask(Id, rootTask.Id);
     }
 }

@@ -8,6 +8,6 @@ public class TaskGroupConfiguration : IEntityTypeConfiguration<TaskGroup>
 {
     public void Configure(EntityTypeBuilder<TaskGroup> builder)
     {
-        builder.Navigation(x => x.Tasks).HasField("_tasks");
+        builder.Navigation(x => x.RootTasks).HasField("_rootTasks");
     }
 }

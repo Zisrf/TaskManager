@@ -15,13 +15,9 @@ var task = new RootTask("roottask");
 var subtask = task.CreateSubtask("sustask");
 
 context.RootTasks.Add(task);
+
 context.SaveChanges();
 
 Console.WriteLine(context.RootTasks.Count());
 Console.WriteLine(context.AllTasks.Count());
 
-//task.RemoveSubtask(subtask);
-//context.SaveChanges();
-
-//Console.WriteLine(context.RootTasks.Count());
-//Console.WriteLine(context.AllTasks.Count());

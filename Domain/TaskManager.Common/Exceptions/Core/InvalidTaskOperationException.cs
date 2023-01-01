@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Common.Exceptions.Entities;
+﻿namespace TaskManager.Common.Exceptions.Core;
 
 public class InvalidTaskOperationException : TaskManagerDomainException
 {
@@ -10,9 +10,14 @@ public class InvalidTaskOperationException : TaskManagerDomainException
         return new InvalidTaskOperationException($"Task {taskId} is already completed");
     }
 
-    public static InvalidTaskOperationException OnCompleteingWithIncompletedSubtasks(Guid taskId)
+    public static InvalidTaskOperationException OnCompleteWithIncompletedSubtasks(Guid taskId)
     {
         return new InvalidTaskOperationException($"Task {taskId} has incompleted subtasks");
+    }
+
+    public static InvalidTaskOperationException OnAddSubtaskToCompletedTask(Guid taskId)
+    {
+        return new InvalidTaskOperationException($"Unable to create subtask, task {taskId} is completed");
     }
 
     public static InvalidTaskOperationException OnRemoveNonExistentSubtask(Guid taskId, Guid subtaskId)

@@ -1,4 +1,4 @@
-﻿using TaskManager.Common.Exceptions.Entities;
+﻿using TaskManager.Common.Exceptions.Core;
 using TaskManager.Core.Models;
 
 namespace TaskManager.Core.Tasks;
@@ -22,13 +22,16 @@ public partial class RootTask : BaseTask
             throw InvalidTaskOperationException.OnRepeatedCompleing(Id);
 
         if (_subtasks.Any(s => s.State is not TaskState.Completed))
-            throw InvalidTaskOperationException.OnCompleteingWithIncompletedSubtasks(Id);
+            throw InvalidTaskOperationException.OnCompleteWithIncompletedSubtasks(Id);
 
         State = TaskState.Completed;
     }
 
     public Subtask CreateSubtask(string info)
     {
+        if (State is TaskState.Completed)
+            throw InvalidTaskOperationException.OnAddSubtaskToCompletedTask(Id);
+
         var newSubtask = new Subtask(this, info);
 
         _subtasks.Add(newSubtask);

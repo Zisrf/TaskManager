@@ -1,5 +1,5 @@
 ﻿using RichEntity.Annotations;
-using TaskManager.Common.Exceptions.Entities;
+using TaskManager.Common.Exceptions.Core;
 using TaskManager.Core.Models;
 
 namespace TaskManager.Core.Tasks;
