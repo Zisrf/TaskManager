@@ -9,11 +9,11 @@ namespace TaskManager.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GroupController : ControllerBase
+public class GroupsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public GroupController(IMediator mediator)
+    public GroupsController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -25,6 +25,15 @@ public class GroupController : ControllerBase
         var response = await _mediator.Send(command);
 
         return Ok(response.TaskGroup);
+    }
+
+    [HttpPut("add-task")]
+    public async Task<ActionResult> AddTaskToGroup(Guid rootTaskId, Guid taskGroupId)
+    {
+        var command = new AddTaskToGroup.Command(rootTaskId, taskGroupId);
+        var response = await _mediator.Send(command);
+
+        return Ok(response);
     }
 
     [HttpGet("get-groups")]

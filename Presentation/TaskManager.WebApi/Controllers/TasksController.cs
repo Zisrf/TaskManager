@@ -8,11 +8,11 @@ namespace TaskManager.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TaskController : ControllerBase
+public class TasksController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public TaskController(IMediator mediator)
+    public TasksController(IMediator mediator)
     {
         _mediator = mediator;
     }
