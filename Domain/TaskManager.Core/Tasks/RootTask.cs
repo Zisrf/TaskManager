@@ -21,7 +21,7 @@ public partial class RootTask : BaseTask
         if (State is TaskState.Completed)
             throw InvalidTaskOperationException.OnRepeatedCompleing(Id);
 
-        if (_subtasks.Any(s => s.State is not TaskState.Completed))
+        if (Subtasks.Any(s => s.State is not TaskState.Completed))
             throw InvalidTaskOperationException.OnCompleteWithIncompletedSubtasks(Id);
 
         State = TaskState.Completed;
