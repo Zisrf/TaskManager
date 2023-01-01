@@ -14,6 +14,7 @@ public class TaskManagerDatabaseContext : DbContext, ITaskManagerDatabaseContext
     }
 
     public DbSet<RootTask> RootTasks { get; protected init; } = null!;
+    public DbSet<Subtask> Subtasks { get; protected init; } = null!;
     public DbSet<BaseTask> AllTasks { get; protected init; } = null!;
     public DbSet<TaskGroup> TaskGroups { get; protected init; } = null!;
 

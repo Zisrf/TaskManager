@@ -1,23 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManager.Core.Tasks;
 using TaskManager.DataAccess;
 
 var optionBuilder = new DbContextOptionsBuilder<TaskManagerDatabaseContext>();
 
 DbContextOptions<TaskManagerDatabaseContext> options =
-    optionBuilder.UseSqlite($"Data Source=consoletest.db").Options;
+    optionBuilder.UseSqlite($"Data Source=consoletest.db").UseLazyLoadingProxies().Options;
 
 var context = new TaskManagerDatabaseContext(options);
-context.Database.EnsureDeleted();
-context.Database.EnsureCreated();
 
-var task = new RootTask("roottask");
-var subtask = task.CreateSubtask("sustask");
+////context.Database.EnsureDeleted();
+////context.Database.EnsureCreated();
 
-context.RootTasks.Add(task);
+////var task = new RootTask("taask");
+////var subtask = task.CreateSubtask("suubtaask");
 
-context.SaveChanges();
+////context.RootTasks.Add(task);
+////context.Subtasks.Add(subtask);
+////context.SaveChanges();
 
-Console.WriteLine(context.RootTasks.Count());
-Console.WriteLine(context.AllTasks.Count());
+////Console.WriteLine(context.RootTasks.Count());
+////Console.WriteLine(context.Subtasks.Count());
+////Console.WriteLine(context.AllTasks.Count());
 
+var task = context.RootTasks.Single();
+
+Console.WriteLine(task.Id);
+Console.WriteLine(task.Info);
+Console.WriteLine(task.State);
+Console.WriteLine(task.Deadline);
+Console.WriteLine(task.Subtasks.Count);

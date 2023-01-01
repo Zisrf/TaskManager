@@ -7,6 +7,7 @@ namespace TaskManager.Application.Abstractions.DataAccess;
 public interface ITaskManagerDatabaseContext
 {
     DbSet<RootTask> RootTasks { get; }
+    DbSet<Subtask> Subtasks { get; }
     DbSet<BaseTask> AllTasks { get; }
 
     DbSet<TaskGroup> TaskGroups { get; }

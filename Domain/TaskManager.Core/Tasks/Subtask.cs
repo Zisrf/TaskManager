@@ -1,4 +1,7 @@
-﻿namespace TaskManager.Core.Tasks;
+﻿using TaskManager.Common.Exceptions.Core;
+using TaskManager.Core.Models;
+
+namespace TaskManager.Core.Tasks;
 
 public partial class Subtask : BaseTask
 {
@@ -9,4 +12,12 @@ public partial class Subtask : BaseTask
     }
 
     public virtual RootTask RootTask { get; protected init; }
+
+    public override void Complete()
+    {
+        if (State is TaskState.Completed)
+            throw InvalidTaskOperationException.OnRepeatedCompleing(Id);
+
+        State = TaskState.Completed;
+    }
 }

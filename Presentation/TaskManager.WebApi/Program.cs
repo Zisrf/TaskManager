@@ -6,7 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHandlers();
-builder.Services.AddDataAccess(x => x.UseSqlite("Data Source=taskmanager.db"));
+
+builder.Services.AddDataAccess(x => x
+    .UseSqlite("Data Source=taskmanager.db")
+    .UseLazyLoadingProxies());
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
