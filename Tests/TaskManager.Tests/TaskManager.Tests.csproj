@@ -21,4 +21,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\TaskManager.Application.Handlers\TaskManager.Application.Handlers.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\TaskManager.DataAccess\TaskManager.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
