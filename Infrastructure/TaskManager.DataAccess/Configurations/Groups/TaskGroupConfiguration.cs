@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TaskManager.Core.Entities;
+using TaskManager.Core.Groups;
 
-namespace TaskManager.DataAccess.Configurations;
+namespace TaskManager.DataAccess.Configurations.Groups;
 
 public class TaskGroupConfiguration : IEntityTypeConfiguration<TaskGroup>
 {
