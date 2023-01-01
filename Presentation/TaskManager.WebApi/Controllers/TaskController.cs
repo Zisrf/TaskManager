@@ -52,4 +52,13 @@ public class TaskController : ControllerBase
 
         return Ok(response.RootTasks);
     }
+
+    [HttpGet("get-incompleted-tasks")]
+    public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetIncompletedTasks()
+    {
+        var query = new GetIncompletedTasks.Query();
+        var response = await _mediator.Send(query);
+
+        return Ok(response.RootTasks);
+    }
 }
