@@ -36,10 +36,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{966AA264-8B30-4BAD-8A46-E11C2592AA65}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Tests.Console", "Tests\TaskManager.Tests.Console\TaskManager.Tests.Console.csproj", "{8E445838-4F36-4288-9DF4-F7AEDBFE820C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Tests.Console", "Tests\TaskManager.Tests.Console\TaskManager.Tests.Console.csproj", "{8E445838-4F36-4288-9DF4-F7AEDBFE820C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
