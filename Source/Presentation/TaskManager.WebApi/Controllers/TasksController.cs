@@ -17,11 +17,13 @@ public class TasksController : ControllerBase
         _mediator = mediator;
     }
 
+    public CancellationToken CancellationToken => HttpContext.RequestAborted;
+
     [HttpPost("create-root-task")]
     public async Task<ActionResult<RootTaskDto>> CreateRootTask(string info, DateTime? deadline = null)
     {
         var command = new CreateRootTask.Command(info, deadline);
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response.RootTask);
     }
@@ -30,7 +32,7 @@ public class TasksController : ControllerBase
     public async Task<ActionResult<RootTaskDto>> CreateRootTask(Guid rootTaskId, string info)
     {
         var command = new CreateSubtask.Command(rootTaskId, info);
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response.Subtask);
     }
@@ -39,7 +41,7 @@ public class TasksController : ControllerBase
     public async Task<ActionResult> CompleteTask(Guid taskId)
     {
         var command = new CompleteTask.Command(taskId);
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);
     }
@@ -48,7 +50,7 @@ public class TasksController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetRootTasks()
     {
         var query = new GetRootTasks.Query();
-        var response = await _mediator.Send(query);
+        var response = await _mediator.Send(query, CancellationToken);
 
         return Ok(response.RootTasks);
     }
@@ -57,7 +59,7 @@ public class TasksController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetIncompletedTasks()
     {
         var query = new GetIncompletedTasks.Query();
-        var response = await _mediator.Send(query);
+        var response = await _mediator.Send(query, CancellationToken);
 
         return Ok(response.RootTasks);
     }

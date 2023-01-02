@@ -18,11 +18,13 @@ public class GroupsController : ControllerBase
         _mediator = mediator;
     }
 
+    public CancellationToken CancellationToken => HttpContext.RequestAborted;
+
     [HttpPost("create-group")]
     public async Task<ActionResult<TaskGroupDto>> CreateTaskGroup(string name)
     {
         var command = new CreateTaskGroup.Command(name);
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response.TaskGroup);
     }
@@ -31,7 +33,7 @@ public class GroupsController : ControllerBase
     public async Task<ActionResult> AddTaskToGroup(Guid rootTaskId, Guid taskGroupId)
     {
         var command = new AddTaskToGroup.Command(rootTaskId, taskGroupId);
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);
     }
