@@ -33,13 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.WebApi", "Presentation\TaskManager.WebApi\TaskManager.WebApi.csproj", "{372684A6-2924-4347-BEA4-9A4AC6B5DCDA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{966AA264-8B30-4BAD-8A46-E11C2592AA65}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
-		README.md = README.md
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
