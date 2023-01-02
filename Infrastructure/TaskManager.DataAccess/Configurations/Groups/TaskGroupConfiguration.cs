@@ -9,5 +9,7 @@ public class TaskGroupConfiguration : IEntityTypeConfiguration<TaskGroup>
     public void Configure(EntityTypeBuilder<TaskGroup> builder)
     {
         builder.Navigation(x => x.RootTasks).HasField("_rootTasks");
+
+        builder.HasMany(x => x.RootTasks).WithMany();
     }
 }
