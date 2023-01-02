@@ -11,7 +11,6 @@ public static class ServiceCollectionExtensions
         Action<DbContextOptionsBuilder> configuration)
     {
         collection.AddDbContext<ITaskManagerDatabaseContext, TaskManagerDatabaseContext>(configuration);
-        // collection.AddScoped<TaskManagerDatabaseContext>(x => x.GetRequiredService<TaskManagerDatabaseContext>());
 
         return collection;
     }
