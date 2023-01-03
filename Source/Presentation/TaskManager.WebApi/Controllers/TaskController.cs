@@ -65,6 +65,15 @@ public class TaskController : ControllerBase
         return Ok(response.RootTasks);
     }
 
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<BaseTaskDto>> GetById(Guid id)
+    {
+        var query = new GetTaskById.Query(id);
+        var response = await _mediator.Send(query, CancellationToken);
+
+        return Ok(response);
+    }
+
     [HttpDelete("{id:guid}/root-task")]
     public async Task<ActionResult> DeleteRootTask(Guid id)
     {
