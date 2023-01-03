@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.Contracts.Groups.Commands;
 using TaskManager.Application.Contracts.Groups.Queries;
 using TaskManager.Application.Dto.Groups;
-using TaskManager.Application.Dto.Tasks;
-using TaskManager.Core.Tasks;
 using TaskManager.WebApi.Models.Groups;
 
 namespace TaskManager.WebApi.Controllers;
