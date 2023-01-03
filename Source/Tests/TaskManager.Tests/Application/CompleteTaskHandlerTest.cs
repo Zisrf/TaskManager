@@ -1,5 +1,5 @@
-﻿using TaskManager.Application.Contracts.Commands;
-using TaskManager.Application.Handlers.Commands;
+﻿using TaskManager.Application.Contracts.Tasks.Commands;
+using TaskManager.Application.Handlers.Tasks.Commands;
 using Xunit;
 
 namespace TaskManager.Tests.Application;

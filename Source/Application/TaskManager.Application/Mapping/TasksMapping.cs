@@ -5,6 +5,12 @@ namespace TaskManager.Application.Mapping;
 
 public static class TasksMapping
 {
+    public static BaseTaskDto AsDto(this BaseTask baseTask) => baseTask switch
+    {
+        Subtask subtask => subtask.AsDto(),
+        RootTask rootTask => rootTask.AsDto(),
+    };
+
     public static SubtaskDto AsDto(this Subtask subtask)
     {
         return new SubtaskDto(
