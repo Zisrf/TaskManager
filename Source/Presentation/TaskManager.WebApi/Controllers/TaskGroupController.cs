@@ -20,15 +20,6 @@ public class TaskGroupController : ControllerBase
 
     public CancellationToken CancellationToken => HttpContext.RequestAborted;
 
-    [HttpGet]
-    public async Task<ActionResult<IReadOnlyCollection<TaskGroupDto>>> Get()
-    {
-        var command = new GetTaskGroups.Query();
-        var response = await _mediator.Send(command, CancellationToken);
-
-        return Ok(response.TaskGroups);
-    }
-
     [HttpPost]
     public async Task<ActionResult<TaskGroupDto>> Create([FromBody] CreateTaskGroupRequest request)
     {
@@ -54,6 +45,24 @@ public class TaskGroupController : ControllerBase
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyCollection<TaskGroupDto>>> Get()
+    {
+        var command = new GetTaskGroups.Query();
+        var response = await _mediator.Send(command, CancellationToken);
+
+        return Ok(response.TaskGroups);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<TaskGroupDto>> GetById(Guid id)
+    {
+        var command = new GetTaskGroupById.Query(id);
+        var response = await _mediator.Send(command, CancellationToken);
+
+        return Ok(response.TaskGroup);
     }
 
     [HttpDelete("{id:guid}")]
