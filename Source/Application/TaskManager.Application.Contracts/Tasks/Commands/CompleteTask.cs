@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace TaskManager.Application.Contracts.Commands;
+namespace TaskManager.Application.Contracts.Tasks.Commands;
 
 public static class CompleteTask
 {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManager.Application.Dto.Groups;
 
-namespace TaskManager.Application.Contracts.Queries;
+namespace TaskManager.Application.Contracts.Groups.Queries;
 
 public static class GetTaskGroups
 {

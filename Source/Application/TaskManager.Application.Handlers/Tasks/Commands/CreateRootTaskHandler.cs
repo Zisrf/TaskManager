@@ -2,9 +2,9 @@
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Mapping;
 using TaskManager.Core.Tasks;
-using static TaskManager.Application.Contracts.Commands.CreateRootTask;
+using static TaskManager.Application.Contracts.Tasks.Commands.CreateRootTask;
 
-namespace TaskManager.Application.Handlers.Commands;
+namespace TaskManager.Application.Handlers.Tasks.Commands;
 
 public class CreateRootTaskHandler : IRequestHandler<Command, Response>
 {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManager.Application.Dto.Tasks;
 
-namespace TaskManager.Application.Contracts.Commands;
+namespace TaskManager.Application.Contracts.Tasks.Commands;
 
 public static class CreateRootTask
 {

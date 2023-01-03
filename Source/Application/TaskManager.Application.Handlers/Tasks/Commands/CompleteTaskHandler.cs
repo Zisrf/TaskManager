@@ -2,9 +2,9 @@
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Extensions;
 using TaskManager.Core.Tasks;
-using static TaskManager.Application.Contracts.Commands.CompleteTask;
+using static TaskManager.Application.Contracts.Tasks.Commands.CompleteTask;
 
-namespace TaskManager.Application.Handlers.Commands;
+namespace TaskManager.Application.Handlers.Tasks.Commands;
 
 public class CompleteTaskHandler : IRequestHandler<Command, Response>
 {

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Mapping;
-using static TaskManager.Application.Contracts.Queries.GetTaskGroups;
+using static TaskManager.Application.Contracts.Groups.Queries.GetTaskGroups;
 
-namespace TaskManager.Application.Handlers.Queries;
+namespace TaskManager.Application.Handlers.Groups.Queries;
 
 public class GetTaskGroupsHandler : IRequestHandler<Query, Response>
 {

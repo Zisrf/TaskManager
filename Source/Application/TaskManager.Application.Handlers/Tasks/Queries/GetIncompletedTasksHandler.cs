@@ -4,9 +4,9 @@ using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Dto.Tasks;
 using TaskManager.Application.Mapping;
 using TaskManager.Core.Models;
-using static TaskManager.Application.Contracts.Queries.GetIncompletedTasks;
+using static TaskManager.Application.Contracts.Tasks.Queries.GetIncompletedTasks;
 
-namespace TaskManager.Application.Handlers.Queries;
+namespace TaskManager.Application.Handlers.Tasks.Queries;
 
 public class GetIncompletedTasksHandler : IRequestHandler<Query, Response>
 {

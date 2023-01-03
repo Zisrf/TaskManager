@@ -1,17 +1,17 @@
 ﻿using MediatR;
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Extensions;
-using TaskManager.Core.Groups;
+using TaskManager.Application.Mapping;
 using TaskManager.Core.Tasks;
-using static TaskManager.Application.Contracts.Commands.AddTaskToGroup;
+using static TaskManager.Application.Contracts.Tasks.Commands.CreateSubtask;
 
-namespace TaskManager.Application.Handlers.Commands;
+namespace TaskManager.Application.Handlers.Tasks.Commands;
 
-public class AddTaskToGroupHandler : IRequestHandler<Command, Response>
+public class CreateSubtaskHandler : IRequestHandler<Command, Response>
 {
     private readonly ITaskManagerDatabaseContext _context;
 
-    public AddTaskToGroupHandler(ITaskManagerDatabaseContext context)
+    public CreateSubtaskHandler(ITaskManagerDatabaseContext context)
     {
         _context = context;
     }
@@ -19,11 +19,10 @@ public class AddTaskToGroupHandler : IRequestHandler<Command, Response>
     public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
     {
         RootTask rootTask = await _context.RootTasks.GetEntityByIdAsync(request.RootTaskId, cancellationToken);
-        TaskGroup taskGroup = await _context.TaskGroups.GetEntityByIdAsync(request.TaskGroupId, cancellationToken);
 
-        taskGroup.AddTask(rootTask);
+        Subtask newSubtask = rootTask.CreateSubtask(request.Info);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new Response();
+        return new Response(newSubtask.AsDto());
     }
 }

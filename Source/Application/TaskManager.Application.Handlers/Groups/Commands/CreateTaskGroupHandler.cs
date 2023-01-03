@@ -2,9 +2,9 @@
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Mapping;
 using TaskManager.Core.Groups;
-using static TaskManager.Application.Contracts.Commands.CreateTaskGroup;
+using static TaskManager.Application.Contracts.Groups.Commands.CreateTaskGroup;
 
-namespace TaskManager.Application.Handlers.Commands;
+namespace TaskManager.Application.Handlers.Groups.Commands;
 
 public class CreateTaskGroupHandler : IRequestHandler<Command, Response>
 {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TaskManager.Application.Dto.Groups;
 
-namespace TaskManager.Application.Contracts.Commands;
+namespace TaskManager.Application.Contracts.Groups.Commands;
 
 public static class CreateTaskGroup
 {

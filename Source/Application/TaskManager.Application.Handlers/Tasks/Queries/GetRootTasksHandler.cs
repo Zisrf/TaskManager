@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using TaskManager.Application.Abstractions.DataAccess;
 using TaskManager.Application.Dto.Tasks;
 using TaskManager.Application.Mapping;
-using static TaskManager.Application.Contracts.Queries.GetRootTasks;
+using static TaskManager.Application.Contracts.Tasks.Queries.GetRootTasks;
 
-namespace TaskManager.Application.Handlers.Queries;
+namespace TaskManager.Application.Handlers.Tasks.Queries;
 
 public class GetRootTasksHandler : IRequestHandler<Query, Response>
 {
