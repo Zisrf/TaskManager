@@ -23,7 +23,7 @@ public class TaskGroupController : ControllerBase
     public CancellationToken CancellationToken => HttpContext.RequestAborted;
 
     [HttpGet]
-    public async Task<ActionResult<RootTaskDto>> Get()
+    public async Task<ActionResult<IReadOnlyCollection<TaskGroupDto>>> Get()
     {
         var command = new GetTaskGroups.Query();
         var response = await _mediator.Send(command, CancellationToken);
@@ -49,8 +49,17 @@ public class TaskGroupController : ControllerBase
         return Ok(response);
     }
 
+    [HttpPut("{id:guid}/remove-root-task")]
+    public async Task<ActionResult> RemoveRootTask(Guid id, Guid rootTaskId)
+    {
+        var command = new RemoveTaskFromGroup.Command(rootTaskId, id);
+        var response = await _mediator.Send(command, CancellationToken);
+
+        return Ok(response);
+    }
+
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult> Remove(Guid id)
+    public async Task<ActionResult> Delete(Guid id)
     {
         var command = new RemoveTaskGroup.Command(id);
         var response = await _mediator.Send(command, CancellationToken);
