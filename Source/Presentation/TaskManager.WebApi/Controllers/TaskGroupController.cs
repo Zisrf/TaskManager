@@ -32,7 +32,7 @@ public class TaskGroupController : ControllerBase
     [HttpPut("{id:guid}/add-root-task")]
     public async Task<ActionResult> AddRootTask(Guid id, Guid rootTaskId)
     {
-        var command = new AddTaskToGroup.Command(rootTaskId, id);
+        var command = new AddTaskToGroup.Command(id, rootTaskId);
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);

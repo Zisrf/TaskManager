@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.Contracts.Tasks.Commands;
 using TaskManager.Application.Contracts.Tasks.Queries;
 using TaskManager.Application.Dto.Tasks;
+using TaskManager.WebApi.Models.Tasks;
 
 namespace TaskManager.WebApi.Controllers;
 
@@ -19,34 +20,34 @@ public class TaskController : ControllerBase
 
     public CancellationToken CancellationToken => HttpContext.RequestAborted;
 
-    [HttpPost("create-root-task")]
-    public async Task<ActionResult<RootTaskDto>> CreateRootTask(string info, DateTime? deadline = null)
+    [HttpPost("root-task")]
+    public async Task<ActionResult<RootTaskDto>> CreateRootTask([FromBody] CreateRootTaskRequest request)
     {
-        var command = new CreateRootTask.Command(info, deadline);
+        var command = new CreateRootTask.Command(request.Info, request.Deadline);
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response.RootTask);
     }
 
-    [HttpPost("create-subtask")]
-    public async Task<ActionResult<RootTaskDto>> CreateRootTask(Guid rootTaskId, string info)
+    [HttpPost("subtask")]
+    public async Task<ActionResult<SubtaskDto>> CreateSubtask([FromBody] CreateSubtaskRequest request)
     {
-        var command = new CreateSubtask.Command(rootTaskId, info);
+        var command = new CreateSubtask.Command(request.RootTaskId, request.Info);
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response.Subtask);
     }
 
-    [HttpPut("complete-task")]
-    public async Task<ActionResult> CompleteTask(Guid taskId)
+    [HttpPut("{id:guid}/complete")]
+    public async Task<ActionResult> CompleteTask(Guid id)
     {
-        var command = new CompleteTask.Command(taskId);
+        var command = new CompleteTask.Command(id);
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);
     }
 
-    [HttpGet("get-tasks")]
+    [HttpGet("root-tasks")]
     public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetRootTasks()
     {
         var query = new GetRootTasks.Query();
@@ -55,12 +56,30 @@ public class TaskController : ControllerBase
         return Ok(response.RootTasks);
     }
 
-    [HttpGet("get-incompleted-tasks")]
+    [HttpGet("incompleted-tasks")]
     public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetIncompletedTasks()
     {
         var query = new GetIncompletedTasks.Query();
         var response = await _mediator.Send(query, CancellationToken);
 
         return Ok(response.RootTasks);
+    }
+
+    [HttpDelete("{id:guid}/root-task")]
+    public async Task<ActionResult> DeleteRootTask(Guid id)
+    {
+        var command = new RemoveRootTask.Command(id);
+        var response = await _mediator.Send(command, CancellationToken);
+
+        return Ok(response);
+    }
+
+    [HttpDelete("{id:guid}/subtask")]
+    public async Task<ActionResult> DeleteSubtask(Guid id)
+    {
+        var command = new RemoveSubtask.Command(id);
+        var response = await _mediator.Send(command, CancellationToken);
+
+        return Ok(response);
     }
 }

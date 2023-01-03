@@ -18,8 +18,4 @@
     <ProjectReference Include="..\..\Infrastructure\TaskManager.DataAccess\TaskManager.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Tasks\" />
-  </ItemGroup>
-
 </Project>
