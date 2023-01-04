@@ -20,14 +20,14 @@ public class GetIncompletedTasksHandler : IRequestHandler<Query, Response>
     public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
     {
         List<RootTaskDto> rootTasks = await _context.RootTasks
-            .Where(r => r.State == TaskState.Created)
+            .Where(r => r.State == TaskState.InProgress)
             .Select(r => new RootTaskDto(
                 r.Id,
                 r.Info,
                 r.State.ToString(),
                 r.Deadline,
                 r.Subtasks
-                    .Where(s => s.State == TaskState.Created)
+                    .Where(s => s.State == TaskState.InProgress)
                     .Select(s => s.AsDto())
                     .ToList()))
             .ToListAsync(cancellationToken);
