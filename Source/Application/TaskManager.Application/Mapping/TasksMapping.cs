@@ -9,6 +9,10 @@ public static class TasksMapping
     {
         Subtask subtask => subtask.AsDto(),
         RootTask rootTask => rootTask.AsDto(),
+        _ => new BaseTaskDto(
+            baseTask.Id,
+            baseTask.Info,
+            baseTask.State.ToString()),
     };
 
     public static SubtaskDto AsDto(this Subtask subtask)
