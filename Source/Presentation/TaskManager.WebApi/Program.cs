@@ -2,34 +2,42 @@ using Microsoft.EntityFrameworkCore;
 using TaskManager.Application.Handlers.Extensions;
 using TaskManager.DataAccess.Extensions;
 
+const string databaseName = "taskmanager.db";
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddHandlers();
+InitServiceCollection(builder);
+InitWebApplication(builder);
 
-builder.Services.AddDataAccess(x => x
-    .UseSqlite("Data Source=taskmanager.db")
-    .UseLazyLoadingProxies());
-
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+void InitServiceCollection(WebApplicationBuilder webApplicationBuilder)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    webApplicationBuilder.Services.AddHandlers();
+
+    webApplicationBuilder.Services.AddDataAccess(x => x
+        .UseSqlite($"Data Source={databaseName}")
+        .UseLazyLoadingProxies());
+
+    webApplicationBuilder.Services.AddControllers();
+
+    webApplicationBuilder.Services.AddEndpointsApiExplorer();
+    webApplicationBuilder.Services.AddSwaggerGen();
 }
 
-app.UseHttpsRedirection();
+void InitWebApplication(WebApplicationBuilder webApplicationBuilder)
+{
+    var app = webApplicationBuilder.Build();
 
-app.UseAuthorization();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.MapControllers();
+    app.UseHttpsRedirection();
 
-app.Run();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
+}
