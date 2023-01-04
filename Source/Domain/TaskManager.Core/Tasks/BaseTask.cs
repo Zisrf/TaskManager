@@ -8,7 +8,7 @@ public abstract partial class BaseTask : IEntity<Guid>
     public BaseTask(string info)
         : this(Guid.NewGuid())
     {
-        State = TaskState.Created;
+        State = TaskState.InProgress;
 
         Info = info;
     }

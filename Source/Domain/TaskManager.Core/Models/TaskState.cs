@@ -2,6 +2,6 @@
 
 public enum TaskState
 {
-    Created,
+    InProgress,
     Completed,
 }
