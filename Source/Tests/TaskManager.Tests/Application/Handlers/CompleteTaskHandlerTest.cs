@@ -2,7 +2,7 @@
 using TaskManager.Application.Handlers.Tasks.Commands;
 using Xunit;
 
-namespace TaskManager.Tests.Application;
+namespace TaskManager.Tests.Application.Handlers;
 
 public class CompleteTaskHandlerTest : ApplicationTestBase
 {
