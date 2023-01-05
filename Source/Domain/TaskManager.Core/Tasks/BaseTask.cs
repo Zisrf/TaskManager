@@ -5,7 +5,7 @@ namespace TaskManager.Core.Tasks;
 
 public abstract partial class BaseTask : IEntity<Guid>
 {
-    public BaseTask(string info)
+    protected BaseTask(string info)
         : this(Guid.NewGuid())
     {
         State = TaskState.InProgress;
