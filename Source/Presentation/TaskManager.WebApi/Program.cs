@@ -27,11 +27,8 @@ void InitWebApplication(WebApplicationBuilder webApplicationBuilder)
 {
     var app = webApplicationBuilder.Build();
 
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
 
