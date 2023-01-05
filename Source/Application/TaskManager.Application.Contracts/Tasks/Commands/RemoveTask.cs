@@ -2,9 +2,9 @@
 
 namespace TaskManager.Application.Contracts.Tasks.Commands;
 
-public static class RemoveRootTask
+public static class RemoveTask
 {
-    public record Command(Guid RootTaskId) : IRequest<Response>;
+    public record Command(Guid TaskId) : IRequest<Response>;
 
     public record Response;
 }

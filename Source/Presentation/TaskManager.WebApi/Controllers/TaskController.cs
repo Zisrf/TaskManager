@@ -47,7 +47,7 @@ public class TaskController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("root-tasks")]
+    [HttpGet]
     public async Task<ActionResult<IReadOnlyCollection<RootTaskDto>>> GetRootTasks()
     {
         var query = new GetRootTasks.Query();
@@ -74,19 +74,10 @@ public class TaskController : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete("{id:guid}/root-task")]
-    public async Task<ActionResult> DeleteRootTask(Guid id)
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult> DeleteTask(Guid id)
     {
-        var command = new RemoveRootTask.Command(id);
-        var response = await _mediator.Send(command, CancellationToken);
-
-        return Ok(response);
-    }
-
-    [HttpDelete("{id:guid}/subtask")]
-    public async Task<ActionResult> DeleteSubtask(Guid id)
-    {
-        var command = new RemoveSubtask.Command(id);
+        var command = new RemoveTask.Command(id);
         var response = await _mediator.Send(command, CancellationToken);
 
         return Ok(response);
