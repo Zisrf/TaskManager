@@ -9,7 +9,7 @@ namespace TaskManager.Tests.Handlers.Tasks;
 public class CreateSubtaskHandlerTest : HandlerTestBase
 {
     [Fact]
-    public void CreateSubtask_RootTaskHasIt()
+    public async void CreateSubtask_RootTaskHasIt()
     {
         var createRootTaskHandler = new CreateRootTaskHandler(Context);
         var createSubtaskHandler = new CreateSubtaskHandler(Context);
@@ -22,8 +22,8 @@ public class CreateSubtaskHandlerTest : HandlerTestBase
             new CreateSubtask.Command(rootTaskId, string.Empty),
             CancellationToken.None).Result.Subtask.Id;
 
-        RootTask rootTask = Context.RootTasks.GetEntityByIdAsync(rootTaskId, CancellationToken.None).Result;
-        Subtask subtask = Context.Subtasks.GetEntityByIdAsync(subtaskId, CancellationToken.None).Result;
+        RootTask rootTask = await Context.RootTasks.GetEntityByIdAsync(rootTaskId, CancellationToken.None);
+        Subtask subtask = await Context.Subtasks.GetEntityByIdAsync(subtaskId, CancellationToken.None);
 
         Assert.Contains(subtask, rootTask.Subtasks);
     }

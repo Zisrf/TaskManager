@@ -38,9 +38,9 @@ public class AddTaskToGroupHandlerTest : HandlerTestBase
             new AddTaskToGroup.Command(taskGroup2Id, rootTaskId),
             CancellationToken.None);
 
-        RootTask rootTask = await Context.RootTasks.GetEntityByIdAsync(rootTaskId);
-        TaskGroup taskGroup1 = await Context.TaskGroups.GetEntityByIdAsync(taskGroup1Id);
-        TaskGroup taskGroup2 = await Context.TaskGroups.GetEntityByIdAsync(taskGroup2Id);
+        RootTask rootTask = await Context.RootTasks.GetEntityByIdAsync(rootTaskId, CancellationToken.None);
+        TaskGroup taskGroup1 = await Context.TaskGroups.GetEntityByIdAsync(taskGroup1Id, CancellationToken.None);
+        TaskGroup taskGroup2 = await Context.TaskGroups.GetEntityByIdAsync(taskGroup2Id, CancellationToken.None);
 
         Assert.Contains(rootTask, taskGroup1.RootTasks);
         Assert.Contains(rootTask, taskGroup2.RootTasks);
