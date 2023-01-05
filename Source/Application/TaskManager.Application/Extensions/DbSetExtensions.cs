@@ -5,7 +5,7 @@ namespace TaskManager.Application.Extensions;
 
 public static class DbSetExtensions
 {
-    public static async Task<T> GetEntityByIdAsync<T>(this DbSet<T> set, Guid id, CancellationToken cancellationToken)
+    public static async Task<T> GetEntityByIdAsync<T>(this DbSet<T> set, Guid id, CancellationToken cancellationToken = default)
         where T : class
     {
         T? entity = await set.FindAsync(new object[] { id }, cancellationToken);

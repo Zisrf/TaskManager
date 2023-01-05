@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManager.DataAccess;
 
-namespace TaskManager.Tests.Application;
+namespace TaskManager.Tests.Handlers;
 
-public class ApplicationTestBase : IDisposable
+public class HandlerTestBase : IDisposable
 {
     protected readonly TaskManagerDatabaseContext Context;
 
-    protected ApplicationTestBase()
+    protected HandlerTestBase()
     {
         var optionBuilder = new DbContextOptionsBuilder<TaskManagerDatabaseContext>();
 

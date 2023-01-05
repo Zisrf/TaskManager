@@ -4,9 +4,9 @@ using TaskManager.Application.Handlers.Tasks.Commands;
 using TaskManager.Core.Tasks;
 using Xunit;
 
-namespace TaskManager.Tests.Application.Handlers;
+namespace TaskManager.Tests.Handlers.Tasks;
 
-public class CreateSubtaskHandlerTest : ApplicationTestBase
+public class CreateSubtaskHandlerTest : HandlerTestBase
 {
     [Fact]
     public void CreateSubtask_RootTaskHasIt()
@@ -29,23 +29,23 @@ public class CreateSubtaskHandlerTest : ApplicationTestBase
     }
 
     [Fact]
-    public void CreateSubtaskInCompletedTask_ThrowException()
+    public async void CreateSubtaskInCompletedTask_ThrowException()
     {
         var createRootTaskHandler = new CreateRootTaskHandler(Context);
         var comleteTaskHandler = new CompleteTaskHandler(Context);
         var createSubtaskHandler = new CreateSubtaskHandler(Context);
 
-        Guid rootTaskId = createRootTaskHandler.Handle(
+        Guid rootTaskId = (await createRootTaskHandler.Handle(
             new CreateRootTask.Command(string.Empty),
-            CancellationToken.None).Result.RootTask.Id;
+            CancellationToken.None)).RootTask.Id;
 
-        _ = comleteTaskHandler.Handle(
+        await comleteTaskHandler.Handle(
             new CompleteTask.Command(rootTaskId),
-            CancellationToken.None).Result;
+            CancellationToken.None);
 
-        Assert.ThrowsAny<Exception>(()
-            => createSubtaskHandler.Handle(
+        await Assert.ThrowsAnyAsync<Exception>(async ()
+            => await createSubtaskHandler.Handle(
                 new CreateSubtask.Command(rootTaskId, string.Empty),
-                CancellationToken.None).Result);
+                CancellationToken.None));
     }
 }

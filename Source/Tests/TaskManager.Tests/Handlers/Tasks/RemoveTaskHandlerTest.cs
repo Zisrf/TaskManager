@@ -7,59 +7,59 @@ using TaskManager.Core.Groups;
 using TaskManager.Core.Tasks;
 using Xunit;
 
-namespace TaskManager.Tests.Application.Handlers;
+namespace TaskManager.Tests.Handlers.Tasks;
 
-public class RemoveTaskHandlerTest : ApplicationTestBase
+public class RemoveTaskHandlerTest : HandlerTestBase
 {
     [Fact]
-    public void RemoveSubtask_RootTaskLostIt()
+    public async void RemoveSubtask_RootTaskLostIt()
     {
         var createRootTaskHandler = new CreateRootTaskHandler(Context);
         var createSubtaskHandler = new CreateSubtaskHandler(Context);
         var removeTaskHandler = new RemoveTaskHandler(Context);
 
-        Guid rootTaskId = createRootTaskHandler.Handle(
+        Guid rootTaskId = (await createRootTaskHandler.Handle(
             new CreateRootTask.Command(string.Empty),
-            CancellationToken.None).Result.RootTask.Id;
+            CancellationToken.None)).RootTask.Id;
 
-        Guid subtaskId = createSubtaskHandler.Handle(
+        Guid subtaskId = (await createSubtaskHandler.Handle(
             new CreateSubtask.Command(rootTaskId, string.Empty),
-            CancellationToken.None).Result.Subtask.Id;
+            CancellationToken.None)).Subtask.Id;
 
-        RootTask rootTask = Context.RootTasks.GetEntityByIdAsync(rootTaskId, CancellationToken.None).Result;
+        RootTask rootTask = await Context.RootTasks.GetEntityByIdAsync(rootTaskId, CancellationToken.None);
 
-        _ = removeTaskHandler.Handle(
+        await removeTaskHandler.Handle(
             new RemoveTask.Command(subtaskId),
-            CancellationToken.None).Result;
+            CancellationToken.None);
 
         Assert.Empty(rootTask.Subtasks);
     }
 
     [Fact]
-    public void RemoveRootTask_TaskGroupLostIt()
+    public async void RemoveRootTask_TaskGroupLostIt()
     {
         var createRootTaskHandler = new CreateRootTaskHandler(Context);
         var createTaskGroupHandler = new CreateTaskGroupHandler(Context);
         var addTaskToGroupHandler = new AddTaskToGroupHandler(Context);
         var removeTaskHandler = new RemoveTaskHandler(Context);
 
-        Guid rootTaskId = createRootTaskHandler.Handle(
+        Guid rootTaskId = (await createRootTaskHandler.Handle(
             new CreateRootTask.Command(string.Empty),
-            CancellationToken.None).Result.RootTask.Id;
+            CancellationToken.None)).RootTask.Id;
 
-        Guid taskGroupId = createTaskGroupHandler.Handle(
+        Guid taskGroupId = (await createTaskGroupHandler.Handle(
             new CreateTaskGroup.Command(string.Empty),
-            CancellationToken.None).Result.TaskGroup.Id;
+            CancellationToken.None)).TaskGroup.Id;
 
-        TaskGroup taskGroup = Context.TaskGroups.GetEntityByIdAsync(taskGroupId, CancellationToken.None).Result;
+        TaskGroup taskGroup = await Context.TaskGroups.GetEntityByIdAsync(taskGroupId, CancellationToken.None);
 
-        _ = addTaskToGroupHandler.Handle(
+        await addTaskToGroupHandler.Handle(
             new AddTaskToGroup.Command(taskGroupId, rootTaskId),
-            CancellationToken.None).Result;
+            CancellationToken.None);
 
-        _ = removeTaskHandler.Handle(
+        await removeTaskHandler.Handle(
             new RemoveTask.Command(rootTaskId),
-            CancellationToken.None).Result;
+            CancellationToken.None);
 
         Assert.Empty(taskGroup.RootTasks);
     }

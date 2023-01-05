@@ -2,28 +2,28 @@
 using TaskManager.Application.Handlers.Tasks.Commands;
 using Xunit;
 
-namespace TaskManager.Tests.Application.Handlers;
+namespace TaskManager.Tests.Handlers.Tasks;
 
-public class CompleteTaskHandlerTest : ApplicationTestBase
+public class CompleteTaskHandlerTest : HandlerTestBase
 {
     [Fact]
-    public void CreateSubtaskInCompletedTask_ThrowException()
+    public async void CreateSubtaskInCompletedTask_ThrowException()
     {
         var createRootTaskHandler = new CreateRootTaskHandler(Context);
         var createSubtaskHandler = new CreateSubtaskHandler(Context);
         var comleteTaskHandler = new CompleteTaskHandler(Context);
 
-        Guid rootTaskId = createRootTaskHandler.Handle(
+        Guid rootTaskId = (await createRootTaskHandler.Handle(
             new CreateRootTask.Command(string.Empty),
-            CancellationToken.None).Result.RootTask.Id;
+            CancellationToken.None)).RootTask.Id;
 
-        _ = createSubtaskHandler.Handle(
+        await createSubtaskHandler.Handle(
                 new CreateSubtask.Command(rootTaskId, string.Empty),
-                CancellationToken.None).Result;
+                CancellationToken.None);
 
-        Assert.ThrowsAny<Exception>(() =>
-            comleteTaskHandler.Handle(
+        await Assert.ThrowsAnyAsync<Exception>(async ()
+            => await comleteTaskHandler.Handle(
                 new CompleteTask.Command(rootTaskId),
-                CancellationToken.None).Result);
+                CancellationToken.None));
     }
 }
